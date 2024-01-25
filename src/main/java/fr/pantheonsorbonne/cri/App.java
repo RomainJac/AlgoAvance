@@ -1,18 +1,15 @@
 package fr.pantheonsorbonne.cri;
 
-/**
- * The main class for the application.
- */
-public final class App {
+public class App {
 
-    private App() {
+    public static void main(String[] args) {
+        ArrayListe myArrayListe = new ArrayListe();
 
-    };
-    /**
-     * main entrypoint for my class.
-     * @param args a bunch of string from the cli
-     */
-    public static void main(final String[] args) {
-        System.out.println("Hello World!");
+        myArrayListe.add("Apple");
+        myArrayListe.add("Banana");
+        myArrayListe.add("Cherry");
+
+        System.out.println("ArrayListe: " + myArrayListe);
+
     }
 }
