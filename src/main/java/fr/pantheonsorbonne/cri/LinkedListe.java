@@ -93,7 +93,10 @@ public class LinkedListe implements Iterable<String> {
 
     private Noeud getIndexNoeud(int index) {
         Noeud courant = premier;
-        for (int i = 0; i < index && courant != null; i++) {
+        for (int i = 0; i < index; i++) {
+            if (courant == null) {
+                throw new IndexOutOfBoundsException("Index en dehors des limites");
+            }
             courant = courant.getNextNoeud();
         }
         return courant;
@@ -215,4 +218,23 @@ public class LinkedListe implements Iterable<String> {
             return content;
         }
     }
+    public String poll() {
+        if (premier == null) {
+            throw new NoSuchElementException("La liste est vide.");
+        }
+        String contenu = premier.getContenu();
+        this.premier = this.premier.getNextNoeud();
+        return contenu;
+    }
+    public void set(int index, String element) {
+        Noeud courant = premier;
+        for (int i = 0;i<index;i++) {
+            courant = courant.getNextNoeud();
+        }
+        courant.setContenu(element);
+    }
+    public void push(String s) {
+        this.addFirst(s);
+    }
+    
 }
