@@ -14,7 +14,7 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour ajouter un élément à la liste
-    // Complexité temporelle : O(n) (amorti), où n est la taille actuelle du tableau
+    // Complexité : O(n) (amorti), où n est la taille actuelle du tableau
     public boolean add(String element) {
         ensureCapacity(size + 1);
         data[size++] = element;
@@ -22,7 +22,7 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour représenter la liste sous forme de chaîne de caractères
-    // Complexité temporelle : O(n), où n est la taille du tableau
+    // Complexité : O(n), où n est la taille du tableau
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("[");
@@ -37,7 +37,7 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour ajouter un élément à une position spécifique dans la liste
-    // Complexité temporelle : O(n), où n est la taille actuelle du tableau
+    // Complexité : O(n), où n est la taille actuelle du tableau
     public void add(int index, String element) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Taille: " + size);
@@ -51,7 +51,7 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour vérifier si la liste contient un élément donné
-    // Complexité temporelle : O(n), où n est la taille du tableau
+    // Complexité : O(n), où n est la taille du tableau
     public boolean contains(String element) {
         for (int i = 0; i < size; i++) {
             if (data[i].equals(element)) {
@@ -62,7 +62,7 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour garantir une capacité minimale du tableau
-    // Complexité temporelle : O(n), où n est la taille du tableau
+    // Complexité : O(1) (amorti), où n est la taille du tableau
     private void ensureCapacity(int minCapacity) {
         if (minCapacity > data.length) {
             int newCapacity = Math.max(data.length * 2, minCapacity);
@@ -71,13 +71,13 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour obtenir l'élément à une position spécifique dans la liste
-    // Complexité temporelle : O(1)
+    // Complexité : O(1)
     public String get(int index) {
         return data[index];
     }
 
     // Méthode pour obtenir l'indice de la première occurrence d'un élément donné
-    // Complexité temporelle : O(n), où n est la taille du tableau
+    // Complexité : O(n), où n est la taille du tableau
     public int indexOf(String element) {
         for (int i = 0; i < size; i++) {
             if (data[i].equals(element)) {
@@ -88,13 +88,13 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour vérifier si la liste est vide
-    // Complexité temporelle : O(1)
+    // Complexité : O(1)
     public boolean isEmpty() {
         return size == 0;
     }
 
     // Méthode pour supprimer l'élément à une position spécifique dans la liste
-    // Complexité temporelle : O(n), où n est la taille actuelle du tableau
+    // Complexité : O(n), où n est la taille actuelle du tableau
     public String remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Taille: " + size);
@@ -109,7 +109,7 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour remplacer l'élément à une position spécifique dans la liste
-    // Complexité temporelle : O(1)
+    // Complexité : O(1)
     public String set(int index, String element) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Taille: " + size);
@@ -121,25 +121,26 @@ public class ArrayListe implements Iterable<String> {
     }
 
     // Méthode pour vider la liste
-    // Complexité temporelle : O(1)
+    // Complexité : O(1)
     public void clear() {
         data = new String[5];
         size = 0;
     }
 
     // Méthode de l'interface Iterable
-    // Complexité temporelle : O(1)
+    // Complexité : O(1)
     @Override
     public Iterator<String> iterator() {
         return new ArrayListeIterator();
     }
+
 
     // Classe interne pour implémenter l'interface Iterator
     private class ArrayListeIterator implements Iterator<String> {
         private int currentIndex = 0;
 
         // Méthode pour vérifier s'il y a un élément suivant dans l'itérateur
-        // Complexité temporelle : O(1)
+        // Complexité : O(1)
         @Override
         public boolean hasNext() {
             return currentIndex < size;
