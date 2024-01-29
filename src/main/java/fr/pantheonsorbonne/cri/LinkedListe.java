@@ -253,4 +253,8 @@ public class LinkedListe implements Iterable<String> {
         this.addFirst(s);
     }
 
+    public boolean isEmpty() {
+        return premier == null;
+    }
+
 }

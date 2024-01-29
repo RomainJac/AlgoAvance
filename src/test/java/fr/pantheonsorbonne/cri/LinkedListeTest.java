@@ -3,6 +3,8 @@ package fr.pantheonsorbonne.cri;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
 public class LinkedListeTest {
 
     @Test
@@ -152,6 +154,74 @@ public class LinkedListeTest {
 
         list.add(4, "LastElement");
         assertEquals("[NewElement, Element1, Element2, Element3, LastElement]", list.toString());
+    }
+
+    @Test
+    void testOfferWithEmptyList() {
+        LinkedListe list = new LinkedListe();
+        assertTrue(list.offer("Element1"));
+        assertEquals("Element1", list.getFirst()); // Assurez-vous d'avoir une méthode getFirst() dans votre classe
+        assertEquals("Element1", list.getLast()); // Assurez-vous d'avoir une méthode getLast() dans votre classe
+    }
+
+    @Test
+    void testOfferWithNonEmptyList() {
+        LinkedListe list = new LinkedListe();
+        list.offer("Element1");
+        assertTrue(list.offer("Element2"));
+        assertEquals("Element1", list.getFirst());
+        assertEquals("Element2", list.getLast());
+    }
+
+    @Test
+    void testPollWithEmptyList() {
+        LinkedListe list = new LinkedListe();
+        assertThrows(NoSuchElementException.class, () -> list.poll());
+    }
+
+    @Test
+    void testPollWithNonEmptyList() {
+        LinkedListe list = new LinkedListe();
+        list.add("Element1");
+        assertEquals("Element1", list.poll());
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    void testSet() {
+        LinkedListe list = new LinkedListe();
+        list.add("Element1");
+        list.add("Element2");
+        list.set(0, "NewElement");
+        assertEquals("NewElement", list.getFirst());
+    }
+
+    @Test
+    void testPush() {
+        LinkedListe list = new LinkedListe();
+        list.push("Element1");
+        assertFalse(list.isEmpty());
+        assertEquals("Element1", list.getFirst());
+    }
+
+    @Test
+    void testIsEmptyWithEmptyList() {
+        LinkedListe list = new LinkedListe();
+        assertTrue(list.isEmpty());
+    }
+
+    @Test
+    void testIsEmptyWithNonEmptyList() {
+        LinkedListe list = new LinkedListe();
+        list.add("Element1");
+        assertFalse(list.isEmpty());
+    }
+
+    @Test
+    void testSetWithIndexOutOfBounds() {
+        LinkedListe list = new LinkedListe();
+        int indexOutOfBounds = 10; 
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set(indexOutOfBounds, "Element"));
     }
 
 }
