@@ -5,9 +5,9 @@ public class App {
     public static void main(String[] args) {
         LinkedListe Link = new LinkedListe();
 
-        Link.addLast("Premier");
-        Link.addLast("Deuxième");
-        Link.addLast("Troisième");
+        Link.addFirst("Premier");
+        Link.add("Deuxième");
+        Link.add("Troisième");
 
         System.out.println("Liste actuelle : " + Link);
 
@@ -15,7 +15,7 @@ public class App {
 
         System.out.println("Liste après ajout au début : " + Link);
 
-        Link.addLast("Dernier");
+        Link.add("Dernier");
 
         System.out.println("Liste après ajout à la fin : " + Link);
     }
