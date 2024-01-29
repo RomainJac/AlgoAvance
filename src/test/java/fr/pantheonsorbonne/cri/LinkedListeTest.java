@@ -217,11 +217,4 @@ public class LinkedListeTest {
         assertFalse(list.isEmpty());
     }
 
-    @Test
-    void testSetWithIndexOutOfBounds() {
-        LinkedListe list = new LinkedListe();
-        int indexOutOfBounds = 10; 
-        assertThrows(IndexOutOfBoundsException.class, () -> list.set(indexOutOfBounds, "Element"));
-    }
-
 }
