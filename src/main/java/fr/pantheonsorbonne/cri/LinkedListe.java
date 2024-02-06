@@ -258,5 +258,10 @@ public class LinkedListe implements Iterable<String> {
     public boolean isEmpty() {
         return premier == null;
     }
+    //dans le contexte d'une liste sans dernier élement, sinon on fait juste
+    //add sur le dernier élément directement...
+    public boolean addRec(String element) {
+        return this.premier.add(element);
+    }
 
 }
