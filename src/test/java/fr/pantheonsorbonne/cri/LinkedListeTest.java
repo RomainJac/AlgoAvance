@@ -160,8 +160,8 @@ public class LinkedListeTest {
     void testOfferWithEmptyList() {
         LinkedListe list = new LinkedListe();
         assertTrue(list.offer("Element1"));
-        assertEquals("Element1", list.getFirst()); // Assurez-vous d'avoir une méthode getFirst() dans votre classe
-        assertEquals("Element1", list.getLast()); // Assurez-vous d'avoir une méthode getLast() dans votre classe
+        assertEquals("Element1", list.getFirst());
+        assertEquals("Element1", list.getLast()); 
     }
     @Test
     void testContainsRec() {
