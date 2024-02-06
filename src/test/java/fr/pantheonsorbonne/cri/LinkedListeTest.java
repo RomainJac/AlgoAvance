@@ -174,9 +174,9 @@ public class LinkedListeTest {
     @Test
     void testAddRec() {
         LinkedListe list = new LinkedListe();
-        list.add("Element1");
-        list.add("Element2");
-        assertTrue(list.add("Element3"));
+        list.addRec("Element1");
+        list.addRec("Element2");
+        assertTrue(list.addRec("Element3"));
         assertTrue(list.containsRecursif("Element3"));
     }
     @Test
