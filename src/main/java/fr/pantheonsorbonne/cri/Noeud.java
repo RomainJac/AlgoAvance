@@ -34,4 +34,11 @@ public class Noeud {
         }
         return this.suivant.contains(element);
     }
+    public boolean add(String element) {
+        if (this.suivant == null) {
+            this.suivant = new Noeud(element, null);
+            return true;
+        }
+        return this.suivant.add(element);
+    }
 }
