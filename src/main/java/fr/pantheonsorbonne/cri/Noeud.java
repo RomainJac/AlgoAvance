@@ -25,5 +25,13 @@ public class Noeud {
     public void setNextNoeud(Noeud suivant) {
         this.suivant = suivant;
     }
-
+    public boolean contains(String element) {
+        if (this.contenu.equals(element)) {
+            return true;
+        }
+        if (this.suivant == null) {
+            return false;
+        }
+        return this.suivant.contains(element);
+    }
 }
