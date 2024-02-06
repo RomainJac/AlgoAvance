@@ -163,7 +163,22 @@ public class LinkedListeTest {
         assertEquals("Element1", list.getFirst()); // Assurez-vous d'avoir une méthode getFirst() dans votre classe
         assertEquals("Element1", list.getLast()); // Assurez-vous d'avoir une méthode getLast() dans votre classe
     }
-
+    @Test
+    void testContainsRec() {
+        LinkedListe list = new LinkedListe();
+        list.add("Element1");
+        list.add("Element2");
+        assertTrue(list.containsRecursif("Element1"));
+        assertFalse(list.containsRecursif("Element3"));
+    }
+    @Test
+    void testAddRec() {
+        LinkedListe list = new LinkedListe();
+        list.add("Element1");
+        list.add("Element2");
+        assertTrue(list.add("Element3"));
+        assertTrue(list.containsRecursif("Element3"));
+    }
     @Test
     void testOfferWithNonEmptyList() {
         LinkedListe list = new LinkedListe();
