@@ -21,7 +21,7 @@ public class LinkedListe implements Iterable<String> {
         }
     }
 
-    public void addLast(String contenu) {
+    public boolean add(String contenu) {
         Noeud nouveauNoeud = new Noeud(contenu, null);
         if (premier == null) {
             premier = nouveauNoeud;
@@ -30,6 +30,7 @@ public class LinkedListe implements Iterable<String> {
             dernier.setNextNoeud(nouveauNoeud);
             dernier = nouveauNoeud;
         }
+        return true;
     }
 
     public void add(int index, String contenu) {
@@ -58,7 +59,7 @@ public class LinkedListe implements Iterable<String> {
         }
     }
 
-    public void removeFirst() {
+    public void remove() {
         if (premier != null) {
             premier = premier.getNextNoeud();
             if (premier == null) {
@@ -155,7 +156,7 @@ public class LinkedListe implements Iterable<String> {
         return dernier.getContenu();
     }
 
-    public boolean contains(String element) {
+    public boolean contains(Object element) {
         Noeud courant = premier;
         while (courant != null) {
             if (courant.getContenu().equals(element)) {
@@ -197,6 +198,18 @@ public class LinkedListe implements Iterable<String> {
         return result.toString();
     }
 
+    public boolean offer(String element) {
+        Noeud nouveauNoeud = new Noeud(element, null);
+        if (premier == null) {
+            premier = nouveauNoeud;
+            dernier = premier;
+        } else {
+            dernier.setNextNoeud(nouveauNoeud);
+            dernier = nouveauNoeud;
+        }
+        return true;
+    }
+
     @Override
     public Iterator<String> iterator() {
         return new LinkedListIterator();
@@ -220,6 +233,7 @@ public class LinkedListe implements Iterable<String> {
             return content;
         }
     }
+
     public String poll() {
         if (premier == null) {
             throw new NoSuchElementException("La liste est vide.");
@@ -228,15 +242,21 @@ public class LinkedListe implements Iterable<String> {
         this.premier = this.premier.getNextNoeud();
         return contenu;
     }
+
     public void set(int index, String element) {
         Noeud courant = premier;
-        for (int i = 0;i<index;i++) {
+        for (int i = 0; i < index; i++) {
             courant = courant.getNextNoeud();
         }
         courant.setContenu(element);
     }
+
     public void push(String s) {
         this.addFirst(s);
     }
-    
+
+    public boolean isEmpty() {
+        return premier == null;
+    }
+
 }
