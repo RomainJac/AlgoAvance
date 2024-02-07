@@ -4,11 +4,13 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
     private E element;
     private NoeudABR<E> left;
     private NoeudABR<E> right;
+    private NoeudABR<E> parent; // Nouveau champ parent
 
     public NoeudABR(E e) {
         this.element = e;
         this.left = null;
         this.right = null;
+        this.parent = null; // Initialisation du parent à null
     }
 
     public E getElement() {
@@ -58,4 +60,11 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
         this.element = e;
     }
 
+    public NoeudABR<E> getParent() {
+        return parent;
+    }
+
+    public void setParent(NoeudABR<E> parent) {
+        this.parent = parent;
+    }
 }
