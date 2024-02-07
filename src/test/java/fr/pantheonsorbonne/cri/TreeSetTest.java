@@ -141,4 +141,40 @@ public class TreeSetTest {
 
         assertThrows(NoSuchElementException.class, iterator::next);
     }
+
+    @Test
+    void testCompareTo() {
+        NoeudABR<Integer> node1 = new NoeudABR<>(5);
+        NoeudABR<Integer> node2 = new NoeudABR<>(10);
+        NoeudABR<Integer> node3 = new NoeudABR<>(5);
+
+        assertTrue(node1.compareTo(node2) < 0); 
+        assertTrue(node2.compareTo(node1) > 0); 
+        assertEquals(0, node1.compareTo(node3)); 
+    }
+
+    @SuppressWarnings("unlikely-arg-type")
+    @Test
+    void testEquals() {
+        NoeudABR<String> node1 = new NoeudABR<>("apple");
+        NoeudABR<String> node2 = new NoeudABR<>("banana");
+        NoeudABR<String> node3 = new NoeudABR<>("apple");
+        NoeudABR<String> node4 = null;
+        String notNode = "apple";
+
+        assertTrue(node1.equals(node3));
+        assertFalse(node1.equals(node2)); 
+        assertFalse(node1.equals(node4)); 
+        assertFalse(node1.equals(notNode)); 
+    }
+
+    @Test
+    void testHashCode() {
+        NoeudABR<Integer> node1 = new NoeudABR<>(5);
+        NoeudABR<Integer> node2 = new NoeudABR<>(10);
+        NoeudABR<Integer> node3 = new NoeudABR<>(5);
+
+        assertEquals(node1.hashCode(), node3.hashCode()); 
+        assertNotEquals(node1.hashCode(), node2.hashCode());
+    }
 }
