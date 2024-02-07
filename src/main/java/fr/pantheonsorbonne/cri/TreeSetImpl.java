@@ -10,8 +10,6 @@ public class TreeSetImpl<E extends Comparable<E>> {
         this.root = null;
     }
 
-    
-
     public boolean add(E e) {
         if (contains(e)) {
             return false;
@@ -19,21 +17,20 @@ public class TreeSetImpl<E extends Comparable<E>> {
         root = addRecursive(e, root, null);
         return true;
     }
-    
+
     private NoeudABR<E> addRecursive(E e, NoeudABR<E> n, NoeudABR<E> parent) {
         if (n == null) {
             n = new NoeudABR<>(e);
-            n.setParent(parent); 
+            n.setParent(parent);
             return n;
         }
         if (e.compareTo(n.getElement()) > 0) {
-            n.setRight(addRecursive(e, n.getRight(), n)); 
+            n.setRight(addRecursive(e, n.getRight(), n));
         } else if (e.compareTo(n.getElement()) < 0) {
             n.setLeft(addRecursive(e, n.getLeft(), n));
         }
         return n;
     }
-    
 
     public E ceiling(E e) {
         return ceilingRecursive(e, root);
@@ -113,17 +110,22 @@ public class TreeSetImpl<E extends Comparable<E>> {
             if (root.getRight() == null) {
                 return root.getLeft();
             }
-            E tmp = root.getRight().getElement();
-            root.setElement(tmp);
-            root.setRight(removeRecursive(tmp, root.getRight()));
-            return root;
-        }
-        if (root.getElement().compareTo(e) < 0) {
+            E minValue = findMinValue(root.getRight());
+            root.setElement(minValue);
+            root.setRight(removeRecursive(minValue, root.getRight()));
+        } else if (root.getElement().compareTo(e) < 0) {
             root.setRight(removeRecursive(e, root.getRight()));
         } else {
             root.setLeft(removeRecursive(e, root.getLeft()));
         }
         return root;
+    }
+
+    private E findMinValue(NoeudABR<E> node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node.getElement();
     }
 
     public int size() {

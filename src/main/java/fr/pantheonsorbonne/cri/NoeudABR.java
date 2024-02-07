@@ -4,13 +4,13 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
     private E element;
     private NoeudABR<E> left;
     private NoeudABR<E> right;
-    private NoeudABR<E> parent; // Nouveau champ parent
+    private NoeudABR<E> parent;
 
     public NoeudABR(E e) {
         this.element = e;
         this.left = null;
         this.right = null;
-        this.parent = null; // Initialisation du parent à null
+        this.parent = null;
     }
 
     public E getElement() {
@@ -27,8 +27,10 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         NoeudABR<?> noeudABR = (NoeudABR<?>) o;
 

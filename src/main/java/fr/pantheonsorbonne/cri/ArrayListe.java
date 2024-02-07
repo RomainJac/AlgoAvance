@@ -134,7 +134,6 @@ public class ArrayListe implements Iterable<String> {
         return new ArrayListeIterator();
     }
 
-
     // Classe interne pour implémenter l'interface Iterator
     private class ArrayListeIterator implements Iterator<String> {
         private int currentIndex = 0;

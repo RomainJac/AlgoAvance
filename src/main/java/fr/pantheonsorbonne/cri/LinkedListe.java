@@ -170,9 +170,11 @@ public class LinkedListe implements Iterable<String> {
     public void clear() {
         premier = dernier = null;
     }
-    public boolean containsRecursif (String element) {
+
+    public boolean containsRecursif(String element) {
         return this.premier.contains(element);
     }
+
     public int size() {
         int count = 0;
         Noeud courant = premier;
@@ -258,8 +260,7 @@ public class LinkedListe implements Iterable<String> {
     public boolean isEmpty() {
         return premier == null;
     }
-    //dans le contexte d'une liste sans dernier élement, sinon on fait juste
-    //add sur le dernier élément directement...
+
     public boolean addRec(String element) {
         if (this.premier == null) {
             this.premier = new Noeud(element, null);

@@ -25,6 +25,7 @@ public class Noeud {
     public void setNextNoeud(Noeud suivant) {
         this.suivant = suivant;
     }
+
     public boolean contains(String element) {
         if (this.contenu.equals(element)) {
             return true;
@@ -34,6 +35,7 @@ public class Noeud {
         }
         return this.suivant.contains(element);
     }
+
     public boolean add(String element) {
         if (this.suivant == null) {
             this.suivant = new Noeud(element, null);
