@@ -13,7 +13,7 @@ public class TreeSetTest {
         TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
         assertTrue(treeSet.add(5));
         assertTrue(treeSet.add(3));
-        assertFalse(treeSet.add(5)); 
+        assertFalse(treeSet.add(5));
     }
 
     @Test
@@ -148,9 +148,9 @@ public class TreeSetTest {
         NoeudABR<Integer> node2 = new NoeudABR<>(10);
         NoeudABR<Integer> node3 = new NoeudABR<>(5);
 
-        assertTrue(node1.compareTo(node2) < 0); 
-        assertTrue(node2.compareTo(node1) > 0); 
-        assertEquals(0, node1.compareTo(node3)); 
+        assertTrue(node1.compareTo(node2) < 0);
+        assertTrue(node2.compareTo(node1) > 0);
+        assertEquals(0, node1.compareTo(node3));
     }
 
     @SuppressWarnings("unlikely-arg-type")
@@ -163,18 +163,25 @@ public class TreeSetTest {
         String notNode = "apple";
 
         assertTrue(node1.equals(node3));
-        assertFalse(node1.equals(node2)); 
-        assertFalse(node1.equals(node4)); 
-        assertFalse(node1.equals(notNode)); 
+        assertFalse(node1.equals(node2));
+        assertFalse(node1.equals(node4));
+        assertFalse(node1.equals(notNode));
     }
 
     @Test
-    void testHashCode() {
-        NoeudABR<Integer> node1 = new NoeudABR<>(5);
-        NoeudABR<Integer> node2 = new NoeudABR<>(10);
-        NoeudABR<Integer> node3 = new NoeudABR<>(5);
+    void testToString() {
+        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        treeSet.add(5);
+        treeSet.add(3);
+        treeSet.add(7);
+        treeSet.add(2);
+        treeSet.add(4);
+        treeSet.add(6);
+        treeSet.add(8);
 
-        assertEquals(node1.hashCode(), node3.hashCode()); 
-        assertNotEquals(node1.hashCode(), node2.hashCode());
+        String expected = "[2, 3, 4, 5, 6, 7, 8, ]";
+
+        assertEquals(expected, treeSet.toString());
     }
+
 }

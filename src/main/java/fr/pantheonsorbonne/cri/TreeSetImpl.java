@@ -196,14 +196,27 @@ public class TreeSetImpl<E extends Comparable<E>> {
 
     @Override
     public String toString() {
-        return "[" + toStringRecursive(root) + "]";
+        return toStringRecursive(root);
     }
 
     private String toStringRecursive(NoeudABR<E> root) {
         if (root == null) {
-            return "";
+            return "[]";
         }
-        return toStringRecursive(root.getLeft()) + root.getElement() + ", " + toStringRecursive(root.getRight());
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        toStringInOrder(root, sb);
+        sb.append("]");
+        return sb.toString();
     }
-    
+
+    private void toStringInOrder(NoeudABR<E> node, StringBuilder sb) {
+        if (node != null) {
+            toStringInOrder(node.getLeft(), sb);
+            sb.append(node.getElement());
+            sb.append(", ");
+            toStringInOrder(node.getRight(), sb);
+        }
+    }
+
 }
