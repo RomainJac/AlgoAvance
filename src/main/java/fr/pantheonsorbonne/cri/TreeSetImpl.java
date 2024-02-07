@@ -193,4 +193,17 @@ public class TreeSetImpl<E extends Comparable<E>> {
             return result;
         }
     }
+
+    @Override
+    public String toString() {
+        return "[" + toStringRecursive(root) + "]";
+    }
+
+    private String toStringRecursive(NoeudABR<E> root) {
+        if (root == null) {
+            return "";
+        }
+        return toStringRecursive(root.getLeft()) + root.getElement() + ", " + toStringRecursive(root.getRight());
+    }
+    
 }
