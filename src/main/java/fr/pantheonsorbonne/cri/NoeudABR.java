@@ -5,12 +5,25 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
     private NoeudABR<E> left;
     private NoeudABR<E> right;
     private NoeudABR<E> parent;
+    private boolean color;
+
+    public static final boolean ROUGE = false;
+    public static final boolean NOIR = true;
 
     public NoeudABR(E e) {
         this.element = e;
         this.left = null;
         this.right = null;
         this.parent = null;
+        this.color = ROUGE;
+    }
+
+    public NoeudABR(E e, NoeudABR<E> parent, boolean color) {
+        this.element = e;
+        this.left = null;
+        this.right = null;
+        this.parent = parent;
+        this.color = color;
     }
 
     public E getElement() {
@@ -63,10 +76,19 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
     }
 
     public NoeudABR<E> getParent() {
-        return parent;
+        return this.parent;
     }
 
-    public void setParent(NoeudABR<E> parent) {
-        this.parent = parent;
+    public void setParent(NoeudABR<E> n) {
+        this.parent = n;
     }
+
+    public boolean getColor() {
+        return this.color;
+    }
+
+    public void setColor(boolean color) {
+        this.color = color;
+    }
+
 }

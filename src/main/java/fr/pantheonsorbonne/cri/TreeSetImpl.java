@@ -15,21 +15,110 @@ public class TreeSetImpl<E extends Comparable<E>> {
             return false;
         }
         root = addRecursive(e, root, null);
+        // Rééquilibrage de l'arbre pour respecter les règles des arbres rouges et noirs
+        root.setColor(NoeudABR.NOIR); // La racine doit toujours être noire
         return true;
     }
 
     private NoeudABR<E> addRecursive(E e, NoeudABR<E> n, NoeudABR<E> parent) {
         if (n == null) {
-            n = new NoeudABR<>(e);
-            n.setParent(parent);
-            return n;
+            NoeudABR<E> newNode = new NoeudABR<>(e);
+            newNode.setColor(NoeudABR.ROUGE); // Nouveau nœud inséré est rouge par défaut
+            newNode.setParent(parent);
+            return newNode;
         }
-        if (e.compareTo(n.getElement()) > 0) {
+        int comparisonResult = e.compareTo(n.getElement());
+        if (comparisonResult > 0) {
             n.setRight(addRecursive(e, n.getRight(), n));
-        } else if (e.compareTo(n.getElement()) < 0) {
+        } else if (comparisonResult < 0) {
             n.setLeft(addRecursive(e, n.getLeft(), n));
         }
+        // Rééquilibrage après insertion
+        return reequilibrerApresInsertion(n);
+    }
+
+    private NoeudABR<E> reequilibrerApresInsertion(NoeudABR<E> n) {
+        NoeudABR<E> parent = n.getParent();
+        if (parent == null) {
+            // Le noeud est la racine de l'arbre
+            n.setColor(NoeudABR.NOIR); // Racine doit être noire
+            return n;
+        }
+        if (parent.getColor() == NoeudABR.NOIR) {
+            // Si le parent est noir, l'arbre est toujours valide
+            return n;
+        }
+        // Le parent est rouge
+        NoeudABR<E> grandParent = parent.getParent();
+        NoeudABR<E> oncle = parent == grandParent.getLeft() ? grandParent.getRight() : grandParent.getLeft();
+        if (oncle != null && oncle.getColor() == NoeudABR.ROUGE) {
+            // Cas 1: l'oncle est rouge
+            parent.setColor(NoeudABR.NOIR);
+            oncle.setColor(NoeudABR.NOIR);
+            grandParent.setColor(NoeudABR.ROUGE);
+            return reequilibrerApresInsertion(grandParent);
+        }
+        // Cas 2: l'oncle est noir ou absent
+        if (n == parent.getRight() && parent == grandParent.getLeft()) {
+            // Rotation gauche-droite
+            rotationGauche(parent);
+            n = n.getLeft();
+        } else if (n == parent.getLeft() && parent == grandParent.getRight()) {
+            // Rotation droite-gauche
+            rotationDroite(parent);
+            n = n.getRight();
+        }
+        // Cas 3: rééquilibrage final
+        parent = n.getParent();
+        grandParent = parent.getParent();
+        if (n == parent.getLeft()) {
+            // Rotation droite
+            rotationDroite(grandParent);
+        } else {
+            // Rotation gauche
+            rotationGauche(grandParent);
+        }
+        parent.setColor(NoeudABR.NOIR);
+        grandParent.setColor(NoeudABR.ROUGE);
         return n;
+    }
+
+    private void rotationGauche(NoeudABR<E> n) {
+        NoeudABR<E> parent = n.getParent();
+        NoeudABR<E> rightChild = n.getRight();
+        n.setRight(rightChild.getLeft());
+        if (rightChild.getLeft() != null) {
+            rightChild.getLeft().setParent(n);
+        }
+        rightChild.setParent(parent);
+        if (parent == null) {
+            root = rightChild;
+        } else if (n == parent.getLeft()) {
+            parent.setLeft(rightChild);
+        } else {
+            parent.setRight(rightChild);
+        }
+        rightChild.setLeft(n);
+        n.setParent(rightChild);
+    }
+
+    private void rotationDroite(NoeudABR<E> n) {
+        NoeudABR<E> parent = n.getParent();
+        NoeudABR<E> leftChild = n.getLeft();
+        n.setLeft(leftChild.getRight());
+        if (leftChild.getRight() != null) {
+            leftChild.getRight().setParent(n);
+        }
+        leftChild.setParent(parent);
+        if (parent == null) {
+            root = leftChild;
+        } else if (n == parent.getRight()) {
+            parent.setRight(leftChild);
+        } else {
+            parent.setLeft(leftChild);
+        }
+        leftChild.setRight(n);
+        n.setParent(leftChild);
     }
 
     public E ceiling(E e) {
@@ -183,40 +272,46 @@ public class TreeSetImpl<E extends Comparable<E>> {
                     nextNode = nextNode.getLeft();
                 }
             } else {
-                NoeudABR<E> parent = nextNode.getParent();
-                while (parent != null && nextNode == parent.getRight()) {
-                    nextNode = parent;
-                    parent = parent.getParent();
+                NoeudABR<E> current = root;
+                NoeudABR<E> successor = null;
+                while (current != null && current != nextNode) {
+                    if (nextNode.getElement().compareTo(current.getElement()) < 0) {
+                        successor = current;
+                        current = current.getLeft();
+                    } else {
+                        current = current.getRight();
+                    }
                 }
-                nextNode = parent;
+                nextNode = successor;
             }
             return result;
         }
-    }
 
-    @Override
-    public String toString() {
-        return toStringRecursive(root);
-    }
-
-    private String toStringRecursive(NoeudABR<E> root) {
-        if (root == null) {
-            return "[]";
+        @Override
+        public String toString() {
+            return toStringRecursive(root);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        toStringInOrder(root, sb);
-        sb.append("]");
-        return sb.toString();
-    }
 
-    private void toStringInOrder(NoeudABR<E> node, StringBuilder sb) {
-        if (node != null) {
-            toStringInOrder(node.getLeft(), sb);
-            sb.append(node.getElement());
-            sb.append(", ");
-            toStringInOrder(node.getRight(), sb);
+        private String toStringRecursive(NoeudABR<E> root) {
+            if (root == null) {
+                return "[]";
+            }
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            toStringInOrder(root, sb);
+            sb.delete(sb.length() - 2, sb.length());
+            sb.append("]");
+            return sb.toString();
         }
+
+        private void toStringInOrder(NoeudABR<E> node, StringBuilder sb) {
+            if (node != null) {
+                toStringInOrder(node.getLeft(), sb);
+                sb.append(node.getElement()).append(", ");
+                toStringInOrder(node.getRight(), sb);
+            }
+        }
+
     }
 
 }
