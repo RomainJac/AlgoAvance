@@ -24,14 +24,14 @@ public class App {
         String randomElement = "Element_" + random.nextInt();
 
         // Test de la méthode contains
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         boolean contains = list.contains(randomElement);
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
 
         // Affichage des résultats
         System.out.println("Taille de la liste : " + size);
         System.out.println("La liste contient l'élément '" + randomElement + "' ? " + contains);
-        System.out.println("Temps d'exécution pour contains : " + (endTime - startTime) + " ms");
+        System.out.println("Temps d'exécution pour contains : " + (endTime - startTime) + " ns");
         System.out.println();
     }
 }
