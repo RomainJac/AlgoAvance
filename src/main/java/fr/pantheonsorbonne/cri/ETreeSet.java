@@ -18,7 +18,7 @@ public class ETreeSet<E extends Comparable<E>> {
     public boolean add(E e) {
         System.out.println("\n\n");
         System.out.println(steps++ + "\n");
-        printChildren(this.root);
+        //printChildren(this.root); //je commente pour pas en afficher plein lors du test du temps
         if (this.root == null) {
             this.root = new NodeTS<>(e, null, NodeTS.NOIR);
             return true;
