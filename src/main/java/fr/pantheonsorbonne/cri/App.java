@@ -1,5 +1,7 @@
 package fr.pantheonsorbonne.cri;
 
+import java.util.Random;
+
 public class App {
     public static void main(String[] args) {
             addElements(0);
