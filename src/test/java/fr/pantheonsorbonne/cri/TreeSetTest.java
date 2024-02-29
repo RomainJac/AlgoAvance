@@ -160,42 +160,22 @@ public class TreeSetTest {
         assertFalse(node1.equals(notNode));
     }
 
-
     @Test
-    public void testReequilibrerApresSuppression() {
-        // Création d'un arbre rouge-noir pour tester la rééquilibrage après suppression
-        NodeTS<Integer> root = new NodeTS<>(10);
-        NodeTS<Integer> leftChild = new NodeTS<>(5);
-        NodeTS<Integer> rightChild = new NodeTS<>(15);
-        root.setLeft(leftChild);
-        root.setRight(rightChild);
+    public void testRotationDroite() {
+        ETreeSet<Integer> tree = new ETreeSet<>();
+        tree.add(5);
+        tree.add(3);
+        tree.add(7);
+        tree.add(2);
+        tree.add(4);
 
-        leftChild.setColor(NodeTS.NOIR);
-        rightChild.setColor(NodeTS.NOIR);
+        tree.rotationDroite(tree.getRoot().getLeft());
 
-        NodeTS<Integer> leftGrandChild = new NodeTS<>(3);
-        leftChild.setLeft(leftGrandChild);
-        leftGrandChild.setColor(NodeTS.NOIR);
-
-        // Vérifier si l'arbre est encore rouge-noir après la suppression
-        assertTrue(isRedBlackTree(root));
+        assertEquals(Integer.valueOf(5), tree.getRoot().getElement());
+        assertEquals(Integer.valueOf(2), tree.getRoot().getLeft().getElement());
+        assertEquals(Integer.valueOf(7), tree.getRoot().getRight().getElement());
     }
 
-    // Méthode pour vérifier si un arbre binaire est un arbre rouge-noir
-    private boolean isRedBlackTree(NodeTS<Integer> root) {
-        if (root == null)
-            return true;
 
-        // Vérifier les propriétés de l'arbre rouge-noir
-        if (root.getColor() == NodeTS.ROUGE) {
-            if ((root.getLeft() != null && root.getLeft().getColor() == NodeTS.ROUGE) ||
-                    (root.getRight() != null && root.getRight().getColor() == NodeTS.ROUGE)) {
-                return false; // Si un nœud rouge a un enfant rouge, l'arbre n'est pas valide
-            }
-        }
-
-        // Vérifier récursivement pour les sous-arbres
-        return isRedBlackTree(root.getLeft()) && isRedBlackTree(root.getRight());
-    }
+   
 }
-

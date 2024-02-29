@@ -144,7 +144,7 @@ public class ETreeSet<E extends Comparable<E>> {
         n.setParent(rightChild);
     }
 
-    private void rotationDroite(NodeTS<E> n) {
+    public void rotationDroite(NodeTS<E> n) {
         NodeTS<E> parent = n.getParent();
         NodeTS<E> leftChild = n.getLeft();
         n.setLeft(leftChild.getRight());

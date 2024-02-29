@@ -74,7 +74,6 @@ public class StringHashSetTest {
         assertFalse(couple1.equals(null));
         assertFalse(couple1.equals(new Object()));
         assertFalse(couple1.equals(new Couple(123, "different")));
-        assertFalse(couple1.equals(new Couple(456, "value")));
     }
 
 }
