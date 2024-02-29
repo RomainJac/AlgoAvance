@@ -17,18 +17,16 @@ public class StringHashSet {
     }
 
     public void add(String key, String value) {
-        int index = hash(key) % buckets.length;
+        int index = Math.abs(hash(key)) % buckets.length;
         if (buckets[index] == null) {
             buckets[index] = new LinkedList<>();
         }
         LinkedList<Couple> bucket = buckets[index];
         for (Couple couple : bucket) {
             if (couple.hash == hash(key)) {
-                // Si le hash existe déjà, ne rien faire
                 return;
             }
         }
-        // Ajouter le couple (hash, value)
         bucket.add(new Couple(hash(key), value));
         size++;
         if ((double) size / buckets.length >= LOAD_FACTOR) {
@@ -37,7 +35,7 @@ public class StringHashSet {
     }
 
     public boolean contains(String key) {
-        int index = hash(key) % buckets.length;
+        int index = Math.abs(hash(key)) % buckets.length;
         if (buckets[index] != null) {
             LinkedList<Couple> bucket = buckets[index];
             for (Couple couple : bucket) {
@@ -78,6 +76,31 @@ public class StringHashSet {
         Couple(int hash, String value) {
             this.hash = hash;
             this.value = value;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            Couple other = (Couple) obj;
+            if (hash != other.hash) {
+                return false;
+            }
+            if (value == null) {
+                if (other.value != null) {
+                    return false;
+                }
+            } else if (!value.equals(other.value)) {
+                return false;
+            }
+            return true;
         }
     }
 }
