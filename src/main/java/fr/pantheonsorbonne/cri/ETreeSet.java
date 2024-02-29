@@ -15,7 +15,7 @@ public class ETreeSet<E extends Comparable<E>> {
         this.root = null;
     }
 
-    public boolean addProf(E e) {
+    public boolean add(E e) {
         System.out.println("\n\n");
         System.out.println(steps++ + "\n");
         printChildren(this.root);
@@ -44,6 +44,7 @@ public class ETreeSet<E extends Comparable<E>> {
         }
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private void insert(E e) {
         NodeTS<E> nc = this.root;
         boolean trouve = false;
