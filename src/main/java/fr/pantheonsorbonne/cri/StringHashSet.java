@@ -7,8 +7,8 @@ public class StringHashSet {
     private static final int DEFAULT_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.7;
 
-    private LinkedList<Couple>[] buckets;
-    private int size;
+    public LinkedList<Couple>[] buckets;
+    public int size;
 
     @SuppressWarnings("unchecked")
     public StringHashSet() {
