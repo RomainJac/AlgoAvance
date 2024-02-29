@@ -3,6 +3,8 @@ package fr.pantheonsorbonne.cri;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import fr.pantheonsorbonne.cri.StringHashSet.Couple;
+
 public class StringHashSetTest {
 
     @Test
@@ -16,7 +18,7 @@ public class StringHashSetTest {
         assertTrue(set.contains("key1"));
         assertTrue(set.contains("key2"));
         assertTrue(set.contains("key3"));
-        assertFalse(set.contains("key4")); 
+        assertFalse(set.contains("key4"));
     }
 
     @Test
@@ -50,5 +52,29 @@ public class StringHashSetTest {
         assertFalse(set.contains("key1"));
     }
 
-   
+    @Test
+    public void testCoupleEquals() {
+        Couple couple1 = new Couple(123, "value");
+        Couple couple2 = new Couple(123, "value");
+        Couple couple3 = new Couple(456, "value");
+
+        // Test reflexivity
+        assertTrue(couple1.equals(couple1));
+
+        // Test symmetry
+        assertTrue(couple1.equals(couple2));
+        assertTrue(couple2.equals(couple1));
+
+        // Test transitivity
+        assertTrue(couple1.equals(couple2));
+        assertTrue(couple2.equals(couple3));
+        assertTrue(couple1.equals(couple3));
+
+        // Test for inequality
+        assertFalse(couple1.equals(null));
+        assertFalse(couple1.equals(new Object()));
+        assertFalse(couple1.equals(new Couple(123, "different")));
+        assertFalse(couple1.equals(new Couple(456, "value")));
+    }
+
 }

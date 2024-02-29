@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.cri;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class StringHashSet {
 
@@ -69,7 +70,7 @@ public class StringHashSet {
         return key.hashCode();
     }
 
-    private static class Couple {
+    public static class Couple {
         int hash;
         String value;
 
@@ -83,24 +84,18 @@ public class StringHashSet {
             if (this == obj) {
                 return true;
             }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
+            if (obj == null || getClass() != obj.getClass()) {
                 return false;
             }
             Couple other = (Couple) obj;
-            if (hash != other.hash) {
-                return false;
-            }
-            if (value == null) {
-                if (other.value != null) {
-                    return false;
-                }
-            } else if (!value.equals(other.value)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(value, other.value);
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
+
     }
+
 }
