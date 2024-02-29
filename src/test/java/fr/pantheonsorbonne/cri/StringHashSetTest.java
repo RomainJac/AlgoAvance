@@ -11,9 +11,9 @@ public class StringHashSetTest {
     public void testAddAndContains() {
         StringHashSet set = new StringHashSet();
 
-        set.add("key1", "value1");
-        set.add("key2", "value2");
-        set.add("key3", "value3");
+        set.add("key1");
+        set.add("key2");
+        set.add("key3");
 
         assertTrue(set.contains("key1"));
         assertTrue(set.contains("key2"));
@@ -25,18 +25,19 @@ public class StringHashSetTest {
     public void testDuplicateAdd() {
         StringHashSet set = new StringHashSet();
 
-        set.add("key1", "value1");
-        set.add("key1", "value2");
+        set.add("key1");
+        set.add("key1");
 
         assertEquals(1, set.size);
     }
+
 
     @Test
     public void testGrow() {
         StringHashSet set = new StringHashSet();
 
         for (int i = 0; i < 17; i++) {
-            set.add("key" + i, "value" + i);
+            set.add("key" + i);
         }
 
         assertEquals(32, set.buckets.length);
