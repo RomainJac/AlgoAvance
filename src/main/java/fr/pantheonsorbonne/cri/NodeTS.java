@@ -1,24 +1,23 @@
 package fr.pantheonsorbonne.cri;
 
-public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>> {
+public class NodeTS<E extends Comparable<E>> implements Comparable<NodeTS<E>> {
     private E element;
-    private NoeudABR<E> left;
-    private NoeudABR<E> right;
-    private NoeudABR<E> parent;
+    private NodeTS<E> left;
+    private NodeTS<E> right;
+    private NodeTS<E> parent;
     private boolean color;
-
     public static final boolean ROUGE = false;
     public static final boolean NOIR = true;
 
-    public NoeudABR(E e) {
-        this.element = e;
+    public NodeTS(E data) {
+        this.element = data;
         this.left = null;
         this.right = null;
         this.parent = null;
         this.color = ROUGE;
     }
 
-    public NoeudABR(E e, NoeudABR<E> parent, boolean color) {
+    public NodeTS(E e, NodeTS<E> parent, boolean color) {
         this.element = e;
         this.left = null;
         this.right = null;
@@ -31,7 +30,7 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
     }
 
     @Override
-    public int compareTo(NoeudABR<E> e) {
+    public int compareTo(NodeTS<E> e) {
         if (e == null) {
             return 1;
         }
@@ -45,7 +44,7 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
         if (o == null || getClass() != o.getClass())
             return false;
 
-        NoeudABR<?> noeudABR = (NoeudABR<?>) o;
+        NodeTS<?> noeudABR = (NodeTS<?>) o;
 
         return element != null ? element.equals(noeudABR.element) : noeudABR.element == null;
     }
@@ -55,19 +54,19 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
         return element != null ? element.hashCode() : 0;
     }
 
-    public NoeudABR<E> getLeft() {
+    public NodeTS<E> getLeft() {
         return this.left;
     }
 
-    public NoeudABR<E> getRight() {
+    public NodeTS<E> getRight() {
         return this.right;
     }
 
-    public void setLeft(NoeudABR<E> n) {
+    public void setLeft(NodeTS<E> n) {
         this.left = n;
     }
 
-    public void setRight(NoeudABR<E> n) {
+    public void setRight(NodeTS<E> n) {
         this.right = n;
     }
 
@@ -75,11 +74,11 @@ public class NoeudABR<E extends Comparable<E>> implements Comparable<NoeudABR<E>
         this.element = e;
     }
 
-    public NoeudABR<E> getParent() {
+    public NodeTS<E> getParent() {
         return this.parent;
     }
 
-    public void setParent(NoeudABR<E> n) {
+    public void setParent(NodeTS<E> n) {
         this.parent = n;
     }
 
