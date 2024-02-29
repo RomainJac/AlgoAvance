@@ -17,23 +17,25 @@ public class StringHashSet {
         size = 0;
     }
 
-    public void add(String key, String value) {
-        int index = Math.abs(hash(key)) % buckets.length;
+    public boolean add(String s) {
+        int hash = s.hashCode();
+        int index = Math.abs(hash) % buckets.length;
         if (buckets[index] == null) {
-            buckets[index] = new LinkedList<>();
+            buckets[index] = new LinkedList<Couple>();
         }
-        LinkedList<Couple> bucket = buckets[index];
-        for (Couple couple : bucket) {
-            if (couple.hash == hash(key)) {
-                return;
+        for (Couple c : buckets[index]) {
+            if (c.hash == hash && c.value.equals(s)) {
+                return false;
             }
         }
-        bucket.add(new Couple(hash(key), value));
+        buckets[index].add(new Couple(hash, s));
         size++;
         if ((double) size / buckets.length >= LOAD_FACTOR) {
             grow();
         }
+        return true;
     }
+    
 
     public boolean contains(String key) {
         int index = Math.abs(hash(key)) % buckets.length;
