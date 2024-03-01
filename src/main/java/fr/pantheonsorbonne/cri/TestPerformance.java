@@ -1,8 +1,9 @@
 package fr.pantheonsorbonne.cri;
 
 /*
- * Les méthodes utilisent Random, mais il faut faire des méthodes déterministes également 
- * (facile, juste appeler contains sur le dernier élément)
+ * Les méthodes utilisent Random, sauf si on lui passe true en argument, dans ce cas là on
+ * cherche le dernier élément ajouté.
+ * 
  */
 public class TestPerformance {
     public double hashSetTime(int nbElem, boolean deterministe) {
