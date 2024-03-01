@@ -124,7 +124,7 @@ public class TreeSetImpl<E extends Comparable<E>> {
     public E ceiling(E e) {
         return ceilingRecursive(e, root);
     }
-
+    
     private E ceilingRecursive(E e, NoeudABR<E> root) {
         if (root == null) {
             return null;
@@ -193,6 +193,14 @@ public class TreeSetImpl<E extends Comparable<E>> {
             return null;
         }
         if (root.getElement().compareTo(e) == 0) {
+            if (!root.getLeft().isLeaf() && !root.getRight().isLeaf()) {
+                NoeudABR<E> minNode = findMin(root.getRight());
+                root.setElement(minNode.getElement());
+                minNode.getParent().setLeft(null);
+                return null;
+            }
+            
+            
             if (root.getLeft() == null) {
                 return root.getRight();
             }
@@ -210,12 +218,6 @@ public class TreeSetImpl<E extends Comparable<E>> {
         return root;
     }
 
-    private E findMinValue(NoeudABR<E> node) {
-        while (node.getLeft() != null) {
-            node = node.getLeft();
-        }
-        return node.getElement();
-    }
 
     public int size() {
         return sizeRecursive(root);
@@ -313,5 +315,11 @@ public class TreeSetImpl<E extends Comparable<E>> {
         }
 
     }
-
+    private NoeudABR<E> findMin(NoeudABR<E> root) {
+        NoeudABR<E> current = root;
+        while (current.getLeft() != null) {
+            current = current.getLeft();
+        }
+        return current;
+    }
 }
