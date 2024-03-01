@@ -89,5 +89,7 @@ public class NodeTS<E extends Comparable<E>> implements Comparable<NodeTS<E>> {
     public void setColor(boolean color) {
         this.color = color;
     }
-
+    public boolean isLeaf() {
+        return this.left == null && this.right == null;
+    }
 }

@@ -58,6 +58,9 @@ public class StringHashSet {
             if (bucket != null) {
                 for (Couple couple : bucket) {
                     int newIndex = couple.hash % newCapacity;
+                    while (newIndex < 0) {
+                        newIndex += newCapacity;
+                    }
                     if (newBuckets[newIndex] == null) {
                         newBuckets[newIndex] = new LinkedList<>();
                     }
