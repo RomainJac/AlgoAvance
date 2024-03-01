@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 
 public class ETreeSet<E extends Comparable<E>> {
     private NodeTS<E> root;
-    private int steps = 0;
 
     public NodeTS<E> getRoot() {
         return this.root;
