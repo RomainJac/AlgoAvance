@@ -2,26 +2,51 @@ package fr.pantheonsorbonne.cri;
 
 public class App {
     public static void main(String[] args) {
+            addElements(0);
+            addElements(10);
+            addElements(100);
+            addElements(1000);
+            addElements(100000);
+            addElements(10000000);
+        }
+    
+    public static void addElements(int numElements) {
+        ArrayListe list = new ArrayListe();
 
-        NoeudABR<Integer> node1 = new NoeudABR<>(5);
-        NoeudABR<Integer> node2 = new NoeudABR<>(3);
-        NoeudABR<Integer> node3 = new NoeudABR<>(8);
+        long startTime = System.nanoTime();
+        for (int i = 0; i < numElements; i++) {
+            list.add("Element " + i);
+        }
+        long endTime = System.nanoTime();
 
-
-        node1.setLeft(node2);
-        node1.setRight(node3);
-
-
-        System.out.println("Node 1: " + node1);
-        System.out.println("Node 2: " + node2);
-        System.out.println("Node 3: " + node3);
-
-
-        NoeudABR<Integer> node4 = new NoeudABR<>(6);
-        System.out.println("Comparison result between node 3 and node 4: " + node3.compareTo(node4));
-
-
-        NoeudABR<Integer> node5 = new NoeudABR<>(8);
-        System.out.println("Equality check result between node 3 and node 5: " + node3.equals(node5));
+        long duration = (endTime - startTime) / 1000000; 
+        System.out.println("Ajout de " + numElements + " elements en " + duration + " milliseconds");
     }
+    public static void addElementsLinked(int numElements) {
+        
+        LinkedListe list = new LinkedListe();
+
+        long startTime = System.nanoTime();
+        for (int i = 0; i < numElements; i++) {
+            list.add("Element " + i);
+        }
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime) / 1000000; // Convert nanoseconds to milliseconds
+        System.out.println("Ajout de " + numElements + " elements en " + duration + " milliseconds");
+    }
+
+    public static void addElementsTreeSet(int numElements) {
+        ETreeSet<Integer> set = new ETreeSet<>();
+
+        long startTime = System.nanoTime();
+        for (int i = 0; i < numElements; i++) {
+            set.add(i);
+        }
+        long endTime = System.nanoTime();
+
+        long duration = (endTime - startTime) / 1000000; // Convert nanoseconds to milliseconds
+        System.out.println("Added " + numElements + " elements in " + duration + " milliseconds");
+    }
+
 }

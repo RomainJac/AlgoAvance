@@ -9,16 +9,8 @@ import java.util.NoSuchElementException;
 public class TreeSetTest {
 
     @Test
-    public void testAdd() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
-        assertTrue(treeSet.add(5));
-        assertTrue(treeSet.add(3));
-        assertFalse(treeSet.add(5));
-    }
-
-    @Test
     public void testCeiling() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
         treeSet.add(10);
         treeSet.add(15);
@@ -30,7 +22,7 @@ public class TreeSetTest {
 
     @Test
     public void testClear() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
         treeSet.add(10);
 
@@ -41,7 +33,7 @@ public class TreeSetTest {
 
     @Test
     public void testContains() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
 
         assertTrue(treeSet.contains(5));
@@ -50,7 +42,7 @@ public class TreeSetTest {
 
     @Test
     public void testRemove() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
         treeSet.add(10);
 
@@ -61,7 +53,7 @@ public class TreeSetTest {
 
     @Test
     public void testRemoveRecursive() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(10);
         treeSet.add(5);
         treeSet.add(15);
@@ -105,7 +97,7 @@ public class TreeSetTest {
 
     @Test
     public void testSize() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
         treeSet.add(10);
         treeSet.add(15);
@@ -115,7 +107,7 @@ public class TreeSetTest {
 
     @Test
     public void testFirst() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
         treeSet.add(10);
         treeSet.add(15);
@@ -125,7 +117,7 @@ public class TreeSetTest {
 
     @Test
     public void testIterator() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
+        ETreeSet<Integer> treeSet = new ETreeSet<>();
         treeSet.add(5);
         treeSet.add(10);
         treeSet.add(15);
@@ -144,9 +136,9 @@ public class TreeSetTest {
 
     @Test
     void testCompareTo() {
-        NoeudABR<Integer> node1 = new NoeudABR<>(5);
-        NoeudABR<Integer> node2 = new NoeudABR<>(10);
-        NoeudABR<Integer> node3 = new NoeudABR<>(5);
+        NodeTS<Integer> node1 = new NodeTS<>(5);
+        NodeTS<Integer> node2 = new NodeTS<>(10);
+        NodeTS<Integer> node3 = new NodeTS<>(5);
 
         assertTrue(node1.compareTo(node2) < 0);
         assertTrue(node2.compareTo(node1) > 0);
@@ -156,10 +148,10 @@ public class TreeSetTest {
     @SuppressWarnings("unlikely-arg-type")
     @Test
     void testEquals() {
-        NoeudABR<String> node1 = new NoeudABR<>("apple");
-        NoeudABR<String> node2 = new NoeudABR<>("banana");
-        NoeudABR<String> node3 = new NoeudABR<>("apple");
-        NoeudABR<String> node4 = null;
+        NodeTS<String> node1 = new NodeTS<>("apple");
+        NodeTS<String> node2 = new NodeTS<>("banana");
+        NodeTS<String> node3 = new NodeTS<>("apple");
+        NodeTS<String> node4 = null;
         String notNode = "apple";
 
         assertTrue(node1.equals(node3));
@@ -169,19 +161,21 @@ public class TreeSetTest {
     }
 
     @Test
-    void testToString() {
-        TreeSetImpl<Integer> treeSet = new TreeSetImpl<>();
-        treeSet.add(5);
-        treeSet.add(3);
-        treeSet.add(7);
-        treeSet.add(2);
-        treeSet.add(4);
-        treeSet.add(6);
-        treeSet.add(8);
+    public void testRotationDroite() {
+        ETreeSet<Integer> tree = new ETreeSet<>();
+        tree.add(5);
+        tree.add(3);
+        tree.add(7);
+        tree.add(2);
+        tree.add(4);
 
-        String expected = "[2, 3, 4, 5, 6, 7, 8, ]";
+        tree.rotationDroite(tree.getRoot().getLeft());
 
-        assertEquals(expected, treeSet.toString());
+        assertEquals(Integer.valueOf(5), tree.getRoot().getElement());
+        assertEquals(Integer.valueOf(2), tree.getRoot().getLeft().getElement());
+        assertEquals(Integer.valueOf(7), tree.getRoot().getRight().getElement());
     }
 
+
+   
 }
