@@ -106,7 +106,7 @@ public class TestPerformance {
                 dataset
         );
         ChartPanel chartPanel = new ChartPanel(chart);
-        JFrame frame = new JFrame("Performance Comparison");
+        JFrame frame = new JFrame("Comparaison des performances");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(chartPanel, BorderLayout.CENTER);
         frame.pack();
@@ -145,7 +145,7 @@ public class TestPerformance {
         );
 
         ChartPanel chartPanel = new ChartPanel(chart);
-        JFrame frame = new JFrame("Performance Comparison");
+        JFrame frame = new JFrame("Comparaison des performances");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(chartPanel, BorderLayout.CENTER);
         frame.pack();
@@ -183,7 +183,7 @@ public class TestPerformance {
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Création de la fenêtre
-        JFrame frame = new JFrame("Performance Comparison Table");
+        JFrame frame = new JFrame("Tableau de comparaison des performances");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.pack();
