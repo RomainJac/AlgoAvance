@@ -1,5 +1,16 @@
 package fr.pantheonsorbonne.cri;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import javax.swing.*;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import javax.swing.table.JTableHeader;
+
 /*
  * Les méthodes utilisent Random, sauf si on lui passe true en argument, dans ce cas là on
  * cherche le dernier élément ajouté.
@@ -55,8 +66,6 @@ public class TestPerformance {
         return end - start;
     }
 
-<<<<<<< HEAD
-=======
     public double averageTime(int nbElem) {
         double totalTime = 0;
 
@@ -162,7 +171,6 @@ public class TestPerformance {
         frame.setVisible(true);
     }
 
->>>>>>> adf8c2637585bd292de1afa65844035d8973cc77
     public static void main(String... args) {
         //En nanosecondes
         TestPerformance test = new TestPerformance();
