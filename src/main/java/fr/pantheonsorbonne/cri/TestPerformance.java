@@ -103,7 +103,7 @@ public class TestPerformance {
         XYSeries lineChartTreeSetSeries = new XYSeries("TreeSet");
 
         int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
-                400_000, 450_000, 500_000 };
+                400_000 };
         for (int size : sizes) {
             double averageLinkedListTime = averageTime(size);
             double averageHashSetTime = averageTimeHashSet(size);
@@ -146,7 +146,8 @@ public class TestPerformance {
     }
 
     public void runTestsTableau() {
-        int[] sizes = { 100, 1000, 10000, 100000 };
+        int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
+            400_000 };
         Object[][] data = new Object[sizes.length][4];
 
         for (int i = 0; i < sizes.length; i++) {
