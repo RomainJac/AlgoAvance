@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
-import java.util.Arrays;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -67,19 +66,6 @@ public class TestPerformance {
         return end - start;
     }
 
-    /*public static void main(String... args) {
-        //En nanosecondes
-        TestPerformance test = new TestPerformance();
-        System.out.println("hashset: " + test.hashSetTime(1000000, true));
-        System.out.println("hashet: " + test.hashSetTime(100000, true));
-        System.out.println("hashet: " + test.hashSetTime(10000, true));
-        System.out.println("linkedListe: " + test.linkedListeTime(1000000, true));
-        System.out.println("linkedListe: " + test.linkedListeTime(100000, true));
-        System.out.println("linkedListe: " + test.linkedListeTime(10000, true));
-        System.out.println("treeSet: " + test.treeSetTime(1000000, true));
-        System.out.println("treeSet: " + test.treeSetTime(100000, true));
-        System.out.println("treeSet: " + test.treeSetTime(10000, true));
-    }*/
     public double averageTime(int nbElem) {
         double totalTime = 0;
 
@@ -116,7 +102,8 @@ public class TestPerformance {
         XYSeries lineChartHashSetSeries = new XYSeries("HashSet");
         XYSeries lineChartTreeSetSeries = new XYSeries("TreeSet");
 
-        int[] sizes = {100, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000, 400_000, 450_000, 500_000, 550_000, 600_000, 650_000, 700_000, 750_000, 800_000, 850_000, 900_000, 950_000, 1_000_000};
+        int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
+                400_000, 450_000, 500_000 };
         for (int size : sizes) {
             double averageLinkedListTime = averageTime(size);
             double averageHashSetTime = averageTimeHashSet(size);
@@ -133,8 +120,7 @@ public class TestPerformance {
                 "Comparaison des performances (contains)",
                 "Taille de la collection",
                 "Temps d'exécution moyen (en ns)",
-                barChartDataset
-        );
+                barChartDataset);
 
         XYSeriesCollection lineChartDataset = new XYSeriesCollection();
         lineChartDataset.addSeries(lineChartLinkedListSeries);
@@ -145,8 +131,7 @@ public class TestPerformance {
                 "Comparaison des performances (contains)",
                 "Taille de la collection",
                 "Temps d'exécution moyen (en ns)",
-                lineChartDataset
-        );
+                lineChartDataset);
 
         ChartPanel barChartPanel = new ChartPanel(barChart);
         ChartPanel lineChartPanel = new ChartPanel(lineChart);
@@ -161,7 +146,7 @@ public class TestPerformance {
     }
 
     public void runTestsTableau() {
-        int[] sizes = {100, 1000, 10000, 100000};
+        int[] sizes = { 100, 1000, 10000, 100000 };
         Object[][] data = new Object[sizes.length][4];
 
         for (int i = 0; i < sizes.length; i++) {
@@ -172,7 +157,7 @@ public class TestPerformance {
             data[i][3] = averageTimeTreeSet(size);
         }
 
-        String[] columnNames = {"Taille de la collection", "LinkedList", "HashSet", "TreeSet"};
+        String[] columnNames = { "Taille de la collection", "LinkedList", "HashSet", "TreeSet" };
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         JTable table = new JTable(model);
@@ -191,4 +176,3 @@ public class TestPerformance {
         test.runTestsTableau();
     }
 }
-
