@@ -123,7 +123,7 @@ public class TestPerformanceAdd {
     }
 
     public void runTestsTableau() {
-        int[] sizes = {100, 1000, 10000, 100000};
+        int[] sizes = {100, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000, 400_000, 450_000, 500_000, 550_000, 600_000, 650_000, 700_000, 750_000, 800_000, 850_000, 900_000, 950_000, 1_000_000};
         Object[][] data = new Object[sizes.length][4];
 
         for (int i = 0; i < sizes.length; i++) {
