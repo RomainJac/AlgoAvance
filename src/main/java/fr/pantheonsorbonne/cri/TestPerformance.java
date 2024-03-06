@@ -1,23 +1,11 @@
 package fr.pantheonsorbonne.cri;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.*;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-
 /*
  * Les méthodes utilisent Random, sauf si on lui passe true en argument, dans ce cas là on
  * cherche le dernier élément ajouté.
  * 
  */
 public class TestPerformance {
-
     public double hashSetTime(int nbElem, boolean deterministe) {
         StringHashSet set = new StringHashSet();
         for (int i = 0; i < nbElem; i++) {
@@ -31,7 +19,7 @@ public class TestPerformance {
             set.contains("elem" + rand);
         }
         long end = System.nanoTime();
-        return (end - start);
+        return end - start;
     }
 
     public double linkedListeTime(int nbElem, boolean deterministe) {
@@ -47,7 +35,8 @@ public class TestPerformance {
             list.contains("elem" + rand);
         }
         long end = System.nanoTime();
-        return (end - start);
+        return end - start;
+
     }
 
     public double treeSetTime(int nbElem, boolean deterministe) {
@@ -66,6 +55,8 @@ public class TestPerformance {
         return end - start;
     }
 
+<<<<<<< HEAD
+=======
     public double averageTime(int nbElem) {
         double totalTime = 0;
 
@@ -103,7 +94,7 @@ public class TestPerformance {
         XYSeries lineChartTreeSetSeries = new XYSeries("TreeSet");
 
         int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
-                400_000, 450_000, 500_000 };
+                400_000 };
         for (int size : sizes) {
             double averageLinkedListTime = averageTime(size);
             double averageHashSetTime = averageTimeHashSet(size);
@@ -146,7 +137,8 @@ public class TestPerformance {
     }
 
     public void runTestsTableau() {
-        int[] sizes = { 100, 1000, 10000, 100000 };
+        int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
+            400_000 };
         Object[][] data = new Object[sizes.length][4];
 
         for (int i = 0; i < sizes.length; i++) {
@@ -170,9 +162,20 @@ public class TestPerformance {
         frame.setVisible(true);
     }
 
+>>>>>>> adf8c2637585bd292de1afa65844035d8973cc77
     public static void main(String... args) {
+        //En nanosecondes
         TestPerformance test = new TestPerformance();
-        test.runTestsGraphique();
-        test.runTestsTableau();
+        System.out.println("hashset: " + test.hashSetTime(1000000, true));
+        System.out.println("hashet: " + test.hashSetTime(100000, true));
+        System.out.println("hashet: " + test.hashSetTime(10000, true));
+        System.out.println("linkedListe: " + test.linkedListeTime(1000000, true));
+        System.out.println("linkedListe: " + test.linkedListeTime(100000, true));
+        System.out.println("linkedListe: " + test.linkedListeTime(10000, true));
+        System.out.println("treeSet: " + test.treeSetTime(1000000, true));
+        System.out.println("treeSet: " + test.treeSetTime(100000, true));
+        System.out.println("treeSet: " + test.treeSetTime(10000, true));
     }
+
+
 }

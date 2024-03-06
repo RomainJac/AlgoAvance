@@ -1,6 +1,10 @@
 package fr.pantheonsorbonne.cri;
 
-public class StackLL<E> {
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
+public class StackLL<E> implements Iterable<E> {
 
     private ElementStackLL<E> last;
 
@@ -44,3 +48,4 @@ public class StackLL<E> {
         return last == null;
     }
 }
+
