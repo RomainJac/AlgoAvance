@@ -1,90 +1,52 @@
 package fr.pantheonsorbonne.cri;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.*;
-import java.util.Arrays;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.data.category.DefaultCategoryDataset;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
-/*
- * Les méthodes utilisent Random, sauf si on lui passe true en argument, dans ce cas là on
- * cherche le dernier élément ajouté.
- * 
- */
-public class TestPerformance {
+public class TestPerformanceAdd {
 
-    public double hashSetTime(int nbElem, boolean deterministe) {
-        StringHashSet set = new StringHashSet();
-        for (int i = 0; i < nbElem; i++) {
-            set.add("elem" + i);
-        }
-        int rand = (int) (Math.random() * nbElem);
-        long start = System.nanoTime();
-        if (deterministe) {
-            set.contains("elem" + nbElem);
-        } else {
-            set.contains("elem" + rand);
-        }
-        long end = System.nanoTime();
-        return (end - start);
-    }
-
-    public double linkedListeTime(int nbElem, boolean deterministe) {
+    public double linkedListeTime(int nbElem) {
         LinkedListe list = new LinkedListe();
+        long start = System.nanoTime();
         for (int i = 0; i < nbElem; i++) {
             list.add("elem" + i);
         }
-        int rand = (int) (Math.random() * nbElem);
-        long start = System.nanoTime();
-        if (deterministe) {
-            list.contains("elem" + nbElem);
-        } else {
-            list.contains("elem" + rand);
-        }
         long end = System.nanoTime();
-        return (end - start);
+        return end - start;
     }
 
-    public double treeSetTime(int nbElem, boolean deterministe) {
-        ETreeSet<String> set = new ETreeSet<>();
+    public double hashSetTime(int nbElem) {
+        StringHashSet set = new StringHashSet();
+        long start = System.nanoTime();
         for (int i = 0; i < nbElem; i++) {
             set.add("elem" + i);
         }
-        int rand = (int) (Math.random() * nbElem);
+        long end = System.nanoTime();
+        return end - start;
+    }
+
+    public double treeSetTime(int nbElem) {
+        ETreeSet<String> set = new ETreeSet<>();
         double start = System.nanoTime();
-        if (deterministe) {
-            set.contains("elem" + nbElem);
-        } else {
-            set.contains("elem" + rand);
+        for (int i = 0; i < nbElem; i++) {
+            set.add("elem" + i);
         }
         double end = System.nanoTime();
         return end - start;
     }
 
-    /*public static void main(String... args) {
-        //En nanosecondes
-        TestPerformance test = new TestPerformance();
-        System.out.println("hashset: " + test.hashSetTime(1000000, true));
-        System.out.println("hashet: " + test.hashSetTime(100000, true));
-        System.out.println("hashet: " + test.hashSetTime(10000, true));
-        System.out.println("linkedListe: " + test.linkedListeTime(1000000, true));
-        System.out.println("linkedListe: " + test.linkedListeTime(100000, true));
-        System.out.println("linkedListe: " + test.linkedListeTime(10000, true));
-        System.out.println("treeSet: " + test.treeSetTime(1000000, true));
-        System.out.println("treeSet: " + test.treeSetTime(100000, true));
-        System.out.println("treeSet: " + test.treeSetTime(10000, true));
-    }*/
-    public double averageTime(int nbElem) {
+    public double averageTimeLinkedList(int nbElem) {
         double totalTime = 0;
 
         for (int i = 0; i < 20; i++) {
-            totalTime += linkedListeTime(nbElem, false);
+            totalTime += linkedListeTime(nbElem);
         }
 
         return totalTime / 20;
@@ -94,7 +56,7 @@ public class TestPerformance {
         double totalTime = 0;
 
         for (int i = 0; i < 20; i++) {
-            totalTime += hashSetTime(nbElem, false);
+            totalTime += hashSetTime(nbElem);
         }
 
         return totalTime / 20;
@@ -104,7 +66,7 @@ public class TestPerformance {
         double totalTime = 0;
 
         for (int i = 0; i < 20; i++) {
-            totalTime += treeSetTime(nbElem, false);
+            totalTime += treeSetTime(nbElem);
         }
 
         return totalTime / 20;
@@ -118,7 +80,7 @@ public class TestPerformance {
 
         int[] sizes = {100, 1000, 10000, 100000};
         for (int size : sizes) {
-            double averageLinkedListTime = averageTime(size);
+            double averageLinkedListTime = averageTimeLinkedList(size);
             double averageHashSetTime = averageTimeHashSet(size);
             double averageTreeSetTime = averageTimeTreeSet(size);
             barChartDataset.addValue(averageLinkedListTime, "LinkedList", "Size: " + size);
@@ -130,7 +92,7 @@ public class TestPerformance {
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Comparaison des performances (contains)",
+                "Comparaison des performances (Méthode add)",
                 "Taille de la collection",
                 "Temps d'exécution moyen (en ns)",
                 barChartDataset
@@ -142,7 +104,7 @@ public class TestPerformance {
         lineChartDataset.addSeries(lineChartTreeSetSeries);
 
         JFreeChart lineChart = ChartFactory.createXYLineChart(
-                "Comparaison des performances (contains)",
+                "Comparaison des performances (Méthode add)",
                 "Taille de la collection",
                 "Temps d'exécution moyen (en ns)",
                 lineChartDataset
@@ -151,7 +113,7 @@ public class TestPerformance {
         ChartPanel barChartPanel = new ChartPanel(barChart);
         ChartPanel lineChartPanel = new ChartPanel(lineChart);
 
-        JFrame frame = new JFrame("Comparaison des performances (contains)");
+        JFrame frame = new JFrame("Comparaison des performances (Méthode add)");
         frame.setLayout(new GridLayout(2, 1));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(barChartPanel);
@@ -167,7 +129,7 @@ public class TestPerformance {
         for (int i = 0; i < sizes.length; i++) {
             int size = sizes[i];
             data[i][0] = size;
-            data[i][1] = averageTime(size);
+            data[i][1] = averageTimeLinkedList(size);
             data[i][2] = averageTimeHashSet(size);
             data[i][3] = averageTimeTreeSet(size);
         }
@@ -178,7 +140,7 @@ public class TestPerformance {
         JTable table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
 
-        JFrame frame = new JFrame("Tableau de comparaison des performances (contains)");
+        JFrame frame = new JFrame("Tableau de comparaison des performances (Méthode add)");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.pack();
