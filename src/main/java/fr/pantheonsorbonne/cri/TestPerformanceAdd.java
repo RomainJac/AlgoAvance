@@ -147,10 +147,10 @@ public class TestPerformanceAdd {
         frame.setVisible(true);
     }
 
-    public static void main(String... args) {
-        TestPerformance test = new TestPerformance();
-        test.runTestsGraphique();
-        test.runTestsTableau();
-    }
+    // public static void main(String... args) {
+    //     TestPerformance test = new TestPerformance();
+    //     test.runTestsGraphique();
+    //     test.runTestsTableau();
+    // }
 }
 
