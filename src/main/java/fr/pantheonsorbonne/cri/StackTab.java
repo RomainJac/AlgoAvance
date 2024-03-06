@@ -1,6 +1,8 @@
 package fr.pantheonsorbonne.cri;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class StackTab<E> {
 
@@ -23,9 +25,6 @@ public class StackTab<E> {
 
     @SuppressWarnings("unchecked")
     public E pop() {
-        if (top == -1) {
-            return null; 
-        }
         E elem = (E) tab[top];
         tab[top--] = null;
         return elem;
@@ -46,5 +45,26 @@ public class StackTab<E> {
     private void resize(int newCapacity) {
         tab = Arrays.copyOf(tab, newCapacity);
         capacity = newCapacity;
+    }
+
+    @SuppressWarnings("unused")
+    Iterator<E> Iterator() {
+        return (Iterator<E>) new StackIterator();
+    }
+
+    private class StackIterator implements Iterator<E> {
+        private int index = top;
+
+        public boolean hasNext() {
+            return index >= 0;
+        }
+
+        @SuppressWarnings("unchecked")
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return (E) tab[index--];
+        }
     }
 }
