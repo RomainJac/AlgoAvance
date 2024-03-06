@@ -1,7 +1,6 @@
 package fr.pantheonsorbonne.cri;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class StackLL<E> implements Iterable<E> {
@@ -47,5 +46,26 @@ public class StackLL<E> implements Iterable<E> {
     public boolean isEmpty() {
         return last == null;
     }
-}
 
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            ElementStackLL<E> current = last;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public E next() {
+                if (current == null) {
+                    throw new NoSuchElementException();
+                }
+                E value = current.getValue();
+                current = current.getPrevious();
+                return value;
+            }
+        };
+    }
+}
