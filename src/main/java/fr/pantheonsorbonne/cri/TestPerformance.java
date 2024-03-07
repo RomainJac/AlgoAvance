@@ -9,7 +9,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import javax.swing.table.JTableHeader;
 
 /*
  * Les méthodes utilisent Random, sauf si on lui passe true en argument, dans ce cas là on
@@ -147,7 +146,7 @@ public class TestPerformance {
 
     public void runTestsTableau() {
         int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
-            400_000 };
+                400_000 };
         Object[][] data = new Object[sizes.length][4];
 
         for (int i = 0; i < sizes.length; i++) {
@@ -172,7 +171,7 @@ public class TestPerformance {
     }
 
     public static void main(String... args) {
-        //En nanosecondes
+        // En nanosecondes
         TestPerformance test = new TestPerformance();
         System.out.println("hashset: " + test.hashSetTime(1000000, true));
         System.out.println("hashet: " + test.hashSetTime(100000, true));
@@ -184,6 +183,5 @@ public class TestPerformance {
         System.out.println("treeSet: " + test.treeSetTime(100000, true));
         System.out.println("treeSet: " + test.treeSetTime(10000, true));
     }
-
 
 }
