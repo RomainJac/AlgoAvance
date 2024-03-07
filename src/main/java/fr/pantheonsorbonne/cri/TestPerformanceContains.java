@@ -10,7 +10,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import java.awt.*;
 
-public class TestPerformanceAdd {
+public class TestPerformanceContains {
     private static final int[] SIZES = { 100, 500, 1000, 10000, 25000, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000 };
     private static final int NUM_TESTS = 50;
 
@@ -66,13 +66,13 @@ public class TestPerformanceAdd {
         runTestsAndGenerateData(barChartDataset, lineChartDataset, labels, functions);
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Comparaison des performances (add)",
+                "Comparaison des performances (contains)",
                 "Taille de la collection",
                 "Temps d'exécution moyen (en ns)",
                 barChartDataset);
 
         JFreeChart lineChart = ChartFactory.createXYLineChart(
-                "Comparaison des performances (add)",
+                "Comparaison des performances (contains)",
                 "Taille de la collection",
                 "Temps d'exécution moyen (en ns)",
                 lineChartDataset);
@@ -80,7 +80,7 @@ public class TestPerformanceAdd {
         ChartPanel barChartPanel = new ChartPanel(barChart);
         ChartPanel lineChartPanel = new ChartPanel(lineChart);
 
-        JFrame frame = new JFrame("Comparaison des performances (add)");
+        JFrame frame = new JFrame("Comparaison des performances (contains)");
         frame.setLayout(new GridLayout(2, 1));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(barChartPanel);
@@ -106,7 +106,7 @@ public class TestPerformanceAdd {
         JTable table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
 
-        JFrame frame = new JFrame("Tableau de comparaison des performances (add)");
+        JFrame frame = new JFrame("Tableau de comparaison des performances (contains)");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.pack();
@@ -114,38 +114,44 @@ public class TestPerformanceAdd {
     }
 
     public static void main(String... args) {
-        TestPerformanceAdd test = new TestPerformanceAdd();
+        TestPerformanceContains test = new TestPerformanceContains();
         test.runTestsGraphique();
         test.runTestsTableau();
     }
 
-    // Méthodes de test spécifiques pour la fonction add
+    // Méthodes de test spécifiques
     private double hashSetTime(int nbElem) {
         StringHashSet set = new StringHashSet();
-        long start = System.nanoTime();
         for (int i = 0; i < nbElem; i++) {
             set.add("elem" + i);
         }
+        int rand = (int) (Math.random() * nbElem);
+        long start = System.nanoTime();
+        set.contains("elem" + rand);
         long end = System.nanoTime();
         return end - start;
     }
 
     private double linkedListTime(int nbElem) {
         LinkedListe list = new LinkedListe();
-        long start = System.nanoTime();
         for (int i = 0; i < nbElem; i++) {
             list.add("elem" + i);
         }
+        int rand = (int) (Math.random() * nbElem);
+        long start = System.nanoTime();
+        list.contains("elem" + rand);
         long end = System.nanoTime();
         return end - start;
     }
 
     private double treeSetTime(int nbElem) {
         ETreeSet<String> set = new ETreeSet<>();
-        double start = System.nanoTime();
         for (int i = 0; i < nbElem; i++) {
             set.add("elem" + i);
         }
+        int rand = (int) (Math.random() * nbElem);
+        double start = System.nanoTime();
+        set.contains("elem" + rand);
         double end = System.nanoTime();
         return end - start;
     }
