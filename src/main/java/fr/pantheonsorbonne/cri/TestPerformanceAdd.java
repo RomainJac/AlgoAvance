@@ -53,17 +53,24 @@ public class TestPerformanceAdd {
     }
 
     public void runTestsGraphique() {
-        DefaultCategoryDataset barChartDataset = new DefaultCategoryDataset();
-        XYSeriesCollection lineChartDataset = new XYSeriesCollection();
+    DefaultCategoryDataset barChartDataset = new DefaultCategoryDataset();
+    XYSeries lineChartLinkedListSeries = new XYSeries("LinkedList");
+    XYSeries lineChartHashSetSeries = new XYSeries("HashSet");
+    XYSeries lineChartTreeSetSeries = new XYSeries("TreeSet");
 
-        String[] labels = { "LinkedList", "HashSet", "TreeSet" };
-        TimeFunction[] functions = {
-                this::linkedListTime,
-                this::hashSetTime,
-                this::treeSetTime
-        };
-
-        runTestsAndGenerateData(barChartDataset, lineChartDataset, labels, functions);
+    int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
+        400_000 };
+    for (int size : sizes) {
+        double averageLinkedListTime = averageTimeLinkedList(size);
+        double averageHashSetTime = averageTimeHashSet(size);
+        double averageTreeSetTime = averageTimeTreeSet(size);
+        barChartDataset.addValue(averageLinkedListTime, "LinkedList", "Size: " + size);
+        barChartDataset.addValue(averageHashSetTime, "HashSet", "Size: " + size);
+        barChartDataset.addValue(averageTreeSetTime, "TreeSet", "Size: " + size);
+        lineChartLinkedListSeries.add(size, averageLinkedListTime);
+        lineChartHashSetSeries.add(size, averageHashSetTime);
+        lineChartTreeSetSeries.add(size, averageTreeSetTime);
+    }
 
         JFreeChart barChart = ChartFactory.createBarChart(
                 "Comparaison des performances (add)",
@@ -90,7 +97,9 @@ public class TestPerformanceAdd {
     }
 
     public void runTestsTableau() {
-        Object[][] data = new Object[SIZES.length][4];
+        int[] sizes = { 100, 500, 1000, 10000, 25_000, 50_000, 100000, 150_000, 200_000, 250_000, 300_000, 350_000,
+            400_000 };
+        Object[][] data = new Object[sizes.length][4];
 
         for (int i = 0; i < SIZES.length; i++) {
             int size = SIZES[i];
@@ -114,39 +123,9 @@ public class TestPerformanceAdd {
     }
 
     public static void main(String... args) {
-        TestPerformanceAdd test = new TestPerformanceAdd();
-        test.runTestsGraphique();
-        test.runTestsTableau();
-    }
-
-    // Méthodes de test spécifiques pour la fonction add
-    private double hashSetTime(int nbElem) {
-        StringHashSet set = new StringHashSet();
-        long start = System.nanoTime();
-        for (int i = 0; i < nbElem; i++) {
-            set.add("elem" + i);
-        }
-        long end = System.nanoTime();
-        return end - start;
-    }
-
-    private double linkedListTime(int nbElem) {
-        LinkedListe list = new LinkedListe();
-        long start = System.nanoTime();
-        for (int i = 0; i < nbElem; i++) {
-            list.add("elem" + i);
-        }
-        long end = System.nanoTime();
-        return end - start;
-    }
-
-    private double treeSetTime(int nbElem) {
-        ETreeSet<String> set = new ETreeSet<>();
-        double start = System.nanoTime();
-        for (int i = 0; i < nbElem; i++) {
-            set.add("elem" + i);
-        }
-        double end = System.nanoTime();
-        return end - start;
-    }
+         TestPerformance test = new TestPerformance();
+         test.runTestsGraphique();
+         test.runTestsTableau();
+     }
 }
+
